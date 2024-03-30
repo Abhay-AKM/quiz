@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Tables Quiz</title>
+    <link rel="stylesheet" href="../css/table_quiz.css">
+    <link rel="stylesheet" href="../css/square_of_number_quiz.css">
+    <style>
+        /* Add CSS for spacing */
+        #spacing {
+            margin-top: 20px; /* Adjust the margin-top as needed */
+        }
+
+        /* Center the button */
+        #submit-answer {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>Practice Tables Quiz (11 - 29)</h2>
+    <table>
+        <tbody></tbody>
+    </table>
+    <div id="spacing"></div> <!-- Add this empty div for spacing -->
+    <!-- <p id="feedback"></p>  -->
+    <form id="quizForm">
+        <label for="startNumber">Enter start number:</label>
+        <input type="number" id="startNumber" name="startNumber">
+        <label for="endNumber">Enter end number:</label>
+        <input type="number" id="endNumber" name="endNumber">
+        <input type="hidden" id="operation" name="operation" value="square">
+        <!-- <button id="submit-answer" type="submit">Start Quiz</button> -->
+    </form>
+    <button id="submit-answer">Start Quiz</button>
+    <div id="quizArea">
+        <h2 id="question"></h2>
+        <input type="number" id="answer" required>
+        <button id="submitAnswer">Submit</button>
+        <button id="nextQuestion" disabled>Next Question</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="../js/tables_quiz.js"></script>
+</body>
+</html>

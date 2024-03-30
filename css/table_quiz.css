@@ -1,0 +1,56 @@
+body {
+    margin: 50px; /* Add margin to the body for spacing */
+}
+
+table {
+    margin: 0 auto; /* Center the table horizontally */
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    width: 70%; /* Set width to distribute evenly */
+}
+
+td {
+    padding: 15px; /* Increase padding for spacing */
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    border-radius: 5px;
+    color: #333;
+    text-align: center; /* Center text within cells */
+}
+
+td:hover {
+    background-color: #eee;
+}
+
+td.selected {
+    background-color: #4CAF50; /* Base color */
+    background-image: linear-gradient(to bottom, #4CAF50 0%, #388E3C 100%); /* Gradient */
+    color: white; /* Text color */
+    border: 1px solid #2E7D32; /* Green border */
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.submit-btn {
+    background-color: #388E3C; /* Green */
+    color: white; /* Text color */
+    padding: 10px 20px; /* Adjust padding */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Indicate clickable action */
+    transition: background-color 0.2s ease; /* Add hover effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 160px; /* Increase font size */
+    font-weight: bold; /* Bold text */
+    background-image: linear-gradient(to bottom, #388E3C 0%, #2E7D32 100%); 
+}
+
+.submit-btn:hover {
+    background-color: #2E7D32; /* Darker green on hover */
+}
