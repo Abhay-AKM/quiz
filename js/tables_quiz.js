@@ -2,7 +2,6 @@ const tableBody = document.querySelector('table tbody'); // Select tbody
 const submitBtn = document.getElementById('submit-answer');
 const questionElement = document.getElementById("question");
 const answerElement = document.getElementById("answer");
-// const feedbackElement = document.getElementById('feedback');
 const quizArea = document.getElementById("quizArea");
 const quizForm = document.getElementById("quizForm");
 const startQuizButton = document.getElementById("submit-answer");
@@ -37,7 +36,6 @@ function createTable() {
 createTable();
 
 submitBtn.addEventListener('click', () => {
-    console.log('sbhsy')
     const selectedNumbers = document.querySelectorAll('td.selected');
     let selectedText = '';
   
