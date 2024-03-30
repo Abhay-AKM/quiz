@@ -5,17 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Website</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Additional CSS for quiz links */
+        .quiz-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+            list-style: none; /* Remove default list styling */
+        }
+        .quiz-item {
+            width: 48%; /* Two quizzes in each row */
+            margin-bottom: 20px; /* Add margin bottom for spacing */
+        }
+        .quiz-link {
+            display: block;
+            padding: 20px; /* Increase padding for spacing */
+            background-color: #28a745; /* Green background color */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+        }
+        .quiz-link:hover {
+            background-color: #218838; /* Darker shade of green when hovered */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <h1>Welcome to Quiz Website</h1>
         <h2>Select a quiz type:</h2>
-        <ul>
-            <li><a href="quizzes/alphabet_to_number_quiz.html" target="_blank">Alphabet to Number Quiz</a></li>
-            <li><a href="quizzes/square_of_number_quiz.html" target="_blank" operat>Square of Number Quiz</a></li>
-            <li><a href="quizzes/cube_of_number_quiz.html" target="_blank">Cube of Number Quiz</a></li>
-            <li><a href="quizzes/tables.html" target="_blank">Practice Tables Quiz</a></li>
-            <!-- Add more quiz types as needed -->
+        <ul class="quiz-list">
+            <li class="quiz-item">
+                <a href="quizzes/alphabet_to_number_quiz.html" class="quiz-link" target="_blank">Alphabet to Number Quiz</a>
+            </li>
+            <li class="quiz-item">
+                <a href="quizzes/square_of_number_quiz.html" class="quiz-link" target="_blank">Square of Number Quiz</a>
+            </li>
+            <li class="quiz-item">
+                <a href="quizzes/cube_of_number_quiz.html" class="quiz-link" target="_blank">Cube of Number Quiz</a>
+            </li>
+            <li class="quiz-item">
+                <a href="quizzes/tables.html" class="quiz-link" target="_blank">Practice Tables Quiz</a>
+            </li>
         </ul>
     </div>
 </body>
