@@ -50,7 +50,8 @@ questions = [];
             for (let j = 2; j <= 9; j++) {
                 questions.push({
                     question: `${i} x ${j} = ?`,
-                    answer: i * j
+                    answer: i * j,
+                    userAnswer: null
                 });
             }
         }
@@ -60,7 +61,8 @@ questions = [];
             for (let i = 2; i <= 9; i++) { // Generate questions from 2 * number to 9 * number
               questions.push({
                   question: `${number} x ${i} = ?`,
-                  answer: number * i
+                  answer: number * i,
+                  userAnswer: null
               });
             }
           }
@@ -125,6 +127,7 @@ function nextQuestion() {
 function checkAnswer() {
     const userAnswer = answerElement.value.trim().toUpperCase();
     const correctAnswer = questions[currentQuestion].answer
+    questions[currentQuestion].userAnswer = userAnswer;
     if (userAnswer === correctAnswer.toString()) {
         resultElement.textContent = "Correct!";
         resultElement.classList.remove("incorrect");
@@ -142,7 +145,32 @@ function checkAnswer() {
 
 function showResults() {
     const percentage = (correctAnswers / totalQuestions) * 100;
-    let resultHTML = generateResultHTML();
+    let resultHTML = `<h2>Quiz Results</h2>`;
+    if (correctAnswers === totalQuestions) {
+        resultHTML += `<p>Congratulations! You got all answers correct! 🎉</p>`;
+    } else {
+        resultHTML += `<p>Correct Answers: ${correctAnswers} out of ${totalQuestions}</p>`;
+        resultHTML += `<p>Percentage: ${percentage.toFixed(2)}%</p>`;
+    }
+
+    resultHTML += `<h3>All Questions:</h3>`;
+    resultHTML += `<div class="table-container">`;
+    resultHTML += `<table>`;
+    resultHTML += `<tr>`;
+    resultHTML += `<th>Question</th>`;
+    resultHTML += `<th>Your Answer</th>`;
+    resultHTML += `<th>Correct Answer</th>`;
+    resultHTML += `</tr>`;
+    questions.forEach((question, index) => {
+        resultHTML += `<tr>`;
+        resultHTML += `<td>${question.question}</td>`;
+        resultHTML += `<td style="color: ${question.userAnswer === question.answer.toString() ? 'green' : 'red'}">${question.userAnswer}</td>`;
+        resultHTML += `<td>${question.answer}</td>`;
+        resultHTML += `</tr>`;
+    });
+    resultHTML += `</table>`;
+    resultHTML += `</div>`;
+
     quizArea.innerHTML = resultHTML;
     submitButton.style.display = "none";
     nextQuestionButton.style.display = "none";
