@@ -8,10 +8,16 @@ const resultElement = document.getElementById("result");
 
 let currentQuestion = 0;
 let correctAnswers = 0;
-let totalQuestions = 26; // Total number of questions (26 alphabets)
-let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let totalQuestions = 4; // Total number of questions (26 alphabets)
+// let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let letters = "ABCD";
 let wrongAnswers = []; // Array to store wrongly answered questions
-let shuffledLetters = shuffleArray(letters.split(''));
+let shuffledLetters = shuffleArray(letters.split('')).map(letter => {
+    return {
+        letter: letter,
+        userAnswer: null // Placeholder for user answer, initially null
+    };
+});
 let answerSubmitted = false; // Flag to track if answer has been submitted
 
 quizForm.addEventListener("submit", function(event) {
@@ -51,7 +57,7 @@ nextQuestionButton.addEventListener("click", function(event) {
 
 function displayNextQuestion() {
     if (currentQuestion < totalQuestions) {
-        const letter = shuffledLetters[currentQuestion];
+        const letter = shuffledLetters[currentQuestion].letter;
         questionElement.textContent = `What is the number value of '${letter}'?`;
         answerElement.value = "";
         answerElement.focus();
@@ -63,8 +69,9 @@ function displayNextQuestion() {
 }
 
 function checkAnswer() {
-    const letter = shuffledLetters[currentQuestion];
+    const letter = shuffledLetters[currentQuestion].letter;
     const userAnswer = answerElement.value.trim().toUpperCase();
+    shuffledLetters[currentQuestion].userAnswer = userAnswer;
     const correctAnswer = letters.indexOf(letter) + 1;
     if (userAnswer === correctAnswer.toString()) {
         resultElement.textContent = "Correct!";
@@ -103,18 +110,33 @@ function generateResultHTML() {
     } else {
         resultHTML += `<p>Correct Answers: ${correctAnswers} out of ${totalQuestions}</p>`;
         resultHTML += `<p>Percentage: ${percentage.toFixed(2)}%</p>`;
-        if (wrongAnswers.length > 0) {
-            resultHTML += `<h3>Incorrect Answers:</h3>`;
-            resultHTML += `<ul>`;
-            wrongAnswers.forEach(wrongAnswer => {
-                resultHTML += `<li>Question: What is the number value of '${shuffledLetters[wrongAnswer.question]}'?<br/>`;
-                resultHTML += `Your Answer: ${wrongAnswer.userAnswer}, Correct Answer: ${wrongAnswer.correctAnswer}</li>`;
-            });
-            resultHTML += `</ul>`;
+        resultHTML += `<h3>All Answers:</h3>`;
+        resultHTML += `<div class="table-container">`;
+        resultHTML += `<table>`;
+        resultHTML += `<tr>`;
+        resultHTML += `<th>Question</th>`;
+        resultHTML += `<th>Your Answer</th>`;
+        resultHTML += `<th>Correct Answer</th>`;
+        resultHTML += `</tr>`;
+        for (let i = 0; i < totalQuestions; i++) {
+            const letter = shuffledLetters[i].letter;
+            const userAnswer = answerElement.value.trim().toUpperCase();
+            const correctAnswer = letters.indexOf(letter) + 1;
+            const isCorrect = userAnswer === correctAnswer.toString();
+            const textColor = isCorrect ? 'green' : 'red';
+            resultHTML += `<tr>`;
+            resultHTML += `<td>What is the number value of '${letter}'?</td>`;
+            resultHTML += `<td style="color: ${textColor}">${userAnswer}</td>`;
+            resultHTML += `<td>${correctAnswer}</td>`;
+            resultHTML += `</tr>`;
         }
+        resultHTML += `</table>`;
+        resultHTML += `</div>`;
     }
     return resultHTML;
 }
+
+
 
 
 function shuffleArray(array) {
