@@ -33,6 +33,12 @@ quizForm.addEventListener("submit", function(event) {
     }
     numbers = Array.from({ length: endNumber - startNumber + 1 }, (_, i) => startNumber + i);
     shuffleNumbers(); // Shuffle the numbers array
+    numbers = numbers.map(number => {
+        return {
+            number: number,
+            userAnswer: null // Placeholder for user answer, initially null
+        };
+    });
     totalQuestions = numbers.length;
     currentQuestion = 0;
     correctAnswers = 0;
@@ -87,7 +93,7 @@ function shuffleArray(array, seed) {
 
 function displayNextQuestion() {
     if (currentQuestion < totalQuestions) {
-        const number = numbers[currentQuestion];
+        const number = numbers[currentQuestion].number;
         let operationName;
         switch(operation) {
             case "square":
@@ -112,7 +118,8 @@ function displayNextQuestion() {
 }
 
 function checkAnswer(userAnswer) {
-    const correctAnswer = Math.pow(numbers[currentQuestion], operation === "square" ? 2 : 3);
+    numbers[currentQuestion].userAnswer = userAnswer;
+    const correctAnswer = Math.pow(numbers[currentQuestion].number, operation === "square" ? 2 : 3);
     if (userAnswer === correctAnswer) {
         resultElement.textContent = "Correct!";
         resultElement.classList.remove("incorrect");
@@ -122,7 +129,7 @@ function checkAnswer(userAnswer) {
         resultElement.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
         resultElement.classList.remove("correct");
         resultElement.classList.add("incorrect");
-        wrongAnswers.push({ question: numbers[currentQuestion], userAnswer, correctAnswer });
+        wrongAnswers.push({ question: numbers[currentQuestion].number, userAnswer, correctAnswer });
     }
     currentQuestion++;
     submitButton.disabled = true;
@@ -137,16 +144,27 @@ function showResults() {
     } else {
         resultHTML += `<p>Correct Answers: ${correctAnswers} out of ${totalQuestions}</p>`;
         resultHTML += `<p>Percentage: ${percentage.toFixed(2)}%</p>`;
-        if (wrongAnswers.length > 0) {
-            resultHTML += `<h3>Incorrect Answers:</h3>`;
-            resultHTML += `<ul>`;
-            wrongAnswers.forEach(wrongAnswer => {
-                resultHTML += `<li>Question: What is the ${operation === "square" ? "square" : "cube"} of ${wrongAnswer.question}?`;
-                resultHTML += `<br/>Your Answer: ${wrongAnswer.userAnswer}, Correct Answer: ${wrongAnswer.correctAnswer}</li>`;
-            });
-            resultHTML += `</ul>`;
-        }
     }
+
+    resultHTML += `<h3>All Questions:</h3>`;
+    resultHTML += `<div class="table-container">`;
+    resultHTML += `<table>`;
+    resultHTML += `<tr>`;
+    resultHTML += `<th>Question</th>`;
+    resultHTML += `<th>Your Answer</th>`;
+    resultHTML += `<th>Correct Answer</th>`;
+    resultHTML += `</tr>`;
+    numbers.forEach(number => {
+        const correctAnswer = Math.pow(number.number, operation === "square" ? 2 : 3);
+        resultHTML += `<tr>`;
+        resultHTML += `<td>What is the ${operation === "square" ? "square" : "cube"} of ${number.number}?`;
+        resultHTML += `<td style="color: ${number.userAnswer === correctAnswer ? 'green' : 'red'}">${number.userAnswer}</td>`;
+        resultHTML += `<td>${correctAnswer}</td>`;
+        resultHTML += `</tr>`;
+    });
+    resultHTML += `</table>`;
+    resultHTML += `</div>`;
+
     quizArea.innerHTML = resultHTML;
     submitButton.style.display = "none";
     nextQuestionButton.style.display = "none";

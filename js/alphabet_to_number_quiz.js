@@ -8,9 +8,8 @@ const resultElement = document.getElementById("result");
 
 let currentQuestion = 0;
 let correctAnswers = 0;
-let totalQuestions = 4; // Total number of questions (26 alphabets)
-// let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let letters = "ABCD";
+let totalQuestions = 26; // Total number of questions (26 alphabets)
+let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let wrongAnswers = []; // Array to store wrongly answered questions
 let shuffledLetters = shuffleArray(letters.split('')).map(letter => {
     return {
