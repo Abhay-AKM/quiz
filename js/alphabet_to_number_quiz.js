@@ -119,7 +119,7 @@ function generateResultHTML() {
         resultHTML += `</tr>`;
         for (let i = 0; i < totalQuestions; i++) {
             const letter = shuffledLetters[i].letter;
-            const userAnswer = answerElement.value.trim().toUpperCase();
+            const userAnswer = shuffledLetters[i].userAnswer;
             const correctAnswer = letters.indexOf(letter) + 1;
             const isCorrect = userAnswer === correctAnswer.toString();
             const textColor = isCorrect ? 'green' : 'red';
