@@ -78,13 +78,13 @@ function shuffleNumbers() {
 function shuffleArray(array, seed) {
     // Initialize random number generator with given seed
     const random = (seed) => {
-        let x = Math.sin(seed++) * 10000;
+        let x = Math.sin(seed) * 10000;
         return x - Math.floor(x);
     };
 
     // Fisher-Yates shuffle algorithm
     for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(random(seed) * (i + 1));
+        const j = Math.floor(random(seed++) * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 
