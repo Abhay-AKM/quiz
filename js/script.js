@@ -14,7 +14,6 @@ let correctAnswers = 0;
 let totalQuestions = 0;
 let numbers = [];
 let answerSubmitted = false; // Flag to track if answer is submitted
-let wrongAnswers = []; // Array to store wrongly answered questions
 let operation;
 
 quizForm.addEventListener("submit", function(event) {
@@ -129,7 +128,6 @@ function checkAnswer(userAnswer) {
         resultElement.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
         resultElement.classList.remove("correct");
         resultElement.classList.add("incorrect");
-        wrongAnswers.push({ question: numbers[currentQuestion].number, userAnswer, correctAnswer });
     }
     currentQuestion++;
     submitButton.disabled = true;

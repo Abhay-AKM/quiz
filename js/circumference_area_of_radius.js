@@ -8,12 +8,14 @@ const resultElement = document.getElementById("result");
 
 let currentQuestion = 0;
 let correctAnswers = 0;
-let totalQuestions = 26; // Total number of questions (26 alphabets)
-let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let shuffledLetters = shuffleArray(letters.split('')).map(letter => {
+const numbers = [7, 14, 21, 28, 35, 42];
+let totalQuestions = numbers.length; // Total number of questions
+let shuffledNumbers = shuffleArray(numbers).map(number => {
     return {
-        letter: letter,
-        userAnswer: null // Placeholder for user answer, initially null
+        number: number,
+        userAnswer: null, // Placeholder for user answer, initially null
+        circumference: (2 * 22 * number) / 7,
+        area: (22 * number * number) / 7
     };
 });
 let answerSubmitted = false; // Flag to track if answer has been submitted
@@ -55,8 +57,8 @@ nextQuestionButton.addEventListener("click", function(event) {
 
 function displayNextQuestion() {
     if (currentQuestion < totalQuestions) {
-        const letter = shuffledLetters[currentQuestion].letter;
-        questionElement.textContent = `What is the opposite of '${letter}'?`;
+        const number = shuffledNumbers[currentQuestion].number;
+        questionElement.textContent = `What is the circumference and area of circle with radius = '${number}'?`;
         answerElement.value = "";
         answerElement.focus();
         resultElement.textContent = ""; // Clear previous result
@@ -67,11 +69,11 @@ function displayNextQuestion() {
 }
 
 function checkAnswer() {
-    const letter = shuffledLetters[currentQuestion].letter;
-    const userAnswer = answerElement.value.trim().toUpperCase();
-    shuffledLetters[currentQuestion].userAnswer = userAnswer;
-    const correctAnswer = letters.charAt(Math.abs(25 - letters.indexOf(letter)));
-    if (userAnswer === correctAnswer.toString()) {
+    const number = shuffledNumbers[currentQuestion].number;
+    const userAnswer = answerElement.value.trim();
+    shuffledNumbers[currentQuestion].userAnswer = userAnswer;
+    const correctAnswer = `${shuffledNumbers[currentQuestion].circumference.toString()} ${shuffledNumbers[currentQuestion].area.toString()}`
+    if (userAnswer === correctAnswer) {
         resultElement.textContent = "Correct!";
         resultElement.classList.remove("incorrect");
         resultElement.classList.add("correct");
@@ -116,13 +118,13 @@ function generateResultHTML() {
         resultHTML += `<th>Correct Answer</th>`;
         resultHTML += `</tr>`;
         for (let i = 0; i < totalQuestions; i++) {
-            const letter = shuffledLetters[i].letter;
-            const userAnswer = shuffledLetters[i].userAnswer;
-            const correctAnswer = letters.charAt(Math.abs(25 - letters.indexOf(letter)));
+            const number = shuffledNumbers[i].number;
+            const userAnswer = shuffledNumbers[i].userAnswer;
+            const correctAnswer = `${shuffledNumbers[i].circumference.toString()} ${shuffledNumbers[i].area.toString()}`
             const isCorrect = userAnswer === correctAnswer.toString();
             const textColor = isCorrect ? 'green' : 'red';
             resultHTML += `<tr>`;
-            resultHTML += `<td>What is the number value of '${letter}'?</td>`;
+            resultHTML += `<td>What is the circumference and area of circle with radius = '${number}'?</td>`;
             resultHTML += `<td style="color: ${textColor}">${userAnswer}</td>`;
             resultHTML += `<td>${correctAnswer}</td>`;
             resultHTML += `</tr>`;

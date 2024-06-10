@@ -10,7 +10,6 @@ let currentQuestion = 0;
 let correctAnswers = 0;
 let totalQuestions = 26; // Total number of questions (26 alphabets)
 let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let wrongAnswers = []; // Array to store wrongly answered questions
 let shuffledLetters = shuffleArray(letters.split('')).map(letter => {
     return {
         letter: letter,
@@ -81,7 +80,6 @@ function checkAnswer() {
         resultElement.textContent = `Incorrect. The correct answer is ${correctAnswer}.`;
         resultElement.classList.remove("correct");
         resultElement.classList.add("incorrect");
-        wrongAnswers.push({ question: currentQuestion, userAnswer, correctAnswer });
     }
     answerSubmitted = true; // Mark answer as submitted
     nextQuestionButton.disabled = false; // Enable Next Question button
